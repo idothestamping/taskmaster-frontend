@@ -13,13 +13,13 @@ function Tasks() {
   const _getTasks = () => {
     // setTasks(mockData)
     // fetch from brook
-    // fetch( mockData, {
-    //   mode:'cors',
-    // })
-    // .then( data => data.json() )
-    // .then( ppl => setTasks(ppl) )
-    // .catch( console.error );
-    setTasks(mockData);
+    fetch( API, {
+      mode:'cors',
+    })
+    .then( data => data.json() )
+    .then( ppl => setTasks(ppl) )
+    .catch( console.error );
+    // setTasks(mockData);
   };
 
   const _toggleStatus = (e) => {
