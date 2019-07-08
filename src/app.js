@@ -11,42 +11,36 @@ function Tasks() {
   const [Tasks, setTasks] = useState([]);
 
   const _getTasks = () => {
+
+    // To use local json file:
     // setTasks(mockData)
-    // fetch from brook
+
     fetch( API, {
       mode:'cors',
     })
     .then( data => data.json() )
-    .then( ppl => setTasks(ppl) )
+    .then( task => setTasks(task) )
     .catch( console.error );
     // setTasks(mockData);
   };
 
   const _toggleStatus = (e) => {
-    // $status = ["availble"=>"availble", "assigned"=>"assigned","accpeted"=>"accepted","finished"=>"finished";];
-    // e.preventDefault();
-    // let id = e.target.id;
-
-    // setTasks( Tasks.map( (task) =>
-    //   task.id !== id ? task : {...task, status:$your_food[$category];}
-    // ));
-
+    e.preventDefault();
+    let id = e.target.id;
   
-    // patch to Brooks api
-    // fetch( `${API}/${id}/state`, {
-    //   mode:'cors',
-    //   method: 'PATCH'
+    fetch( `${API}/${id}/state`, {
+      mode:'cors',
+      method: 'PUT'
     
-    // })
-    // .then(data => data.json())
-    // .then(person => {
-    //   setTasks( Tasks.map( (entry) => {
-    //       return entry.id === id ? person : entry;
-    //     }
-    //   ));
-    // })
-    // .catch( console.error );
-
+    })
+    .then(data => data.json())
+    .then(task => {
+      setTasks( Tasks.map( (entry) => {
+          return entry.id === id ? task : entry;
+        }
+      ));
+    })
+    .catch( console.error );
   };
 
   useEffect(_getTasks, []);
@@ -59,8 +53,7 @@ function Tasks() {
             <summary>
               <span>{task.title}</span>
               <span>{task.assignee}</span>
-              <span id={task.id} onClick={_toggleStatus}>{task.status.toString()}</span>
-
+              <span className="status" id={task.id} onClick={_toggleStatus} >{task.status}</span>
             </summary>
             <Description description={task.description} />
           </details>
@@ -75,11 +68,6 @@ function Description(props) {
   return (
     <section>
       {description}
-      {/* {description.map( (item,idx) =>
-        <div>
-          {item.itemName}
-        </div>
-      )} */}
     </section>
   )
 }
