@@ -51,10 +51,14 @@ function Tasks() {
         <li className={`vip-${task.status}`} key={task.id}>
           <details>
             <summary>
-              <span>{task.title}</span>
-              <span>{task.assignee}</span>
-              <button className="status push" id={task.id} onClick={_toggleStatus}>{task.status}</button>
-              <form action={`${API}/${task.id}/images`} method="post" encType="multipart/form-data">
+
+              <span>Status: 
+              <button className={`button status-${task.status}`} id={task.id} onClick={_toggleStatus}>{task.status}</button>
+              </span>
+
+              <span>Title: <span className="userdata">{task.title}</span></span>
+
+              <form className="push" action={`${API}/${task.id}/images`} method="post" encType="multipart/form-data">
               <label>
                 <span>Upload Image: </span>
                 <input name="file" type="file" />
@@ -76,10 +80,11 @@ function Description(props) {
   let assignee = props.task.assignee || [];
   return (
     <section>
-      Assignee Name: {assignee}
+      Assignee Name: <span className="userdata">{assignee}</span>
       <br></br>
-      Description: {description}
+      Description: <span className="userdata">{description}</span>
       <br></br>
+      Uploaded Image: <br></br>
       <img src={image} alt={image} />
     </section>
   )
