@@ -11,42 +11,36 @@ main {
 
   ul {
       list-style-type: none;
+      max-width: 1200px;
 
       li {
           background: #eee;
           line-height: 1.6em;
           margin: .5em;
           padding: .5em;
-
-          &.status-availble {
-              background:rgb(116, 116, 246);
-          }
-          &.status-assigned {
-            background:rgb(248, 195, 96);
-        }
-        &.status-accepted {
-          background:#80ff80;
       }
-      &.status-finished {
-        background:grey;
-    }
-
+      
           details {
               summary {
                   display:flex;
                   flex-direction:row;
                   justify-content: space-between;
+
+                  span {
+                    margin-right: 3em;
+                  }
+
                 }
               section {
                   background: #ccc;
-                  div {
+                  span {
                       display: flex;
                       flex-direction: row;
                       justify-content: space-between;
-                      padding:.2345em .5em;
+                      padding:.1m .2em;
                       margin-right: 20px;
                       &:hover {
-                          background: #fff;
+                          background: rgb(121, 177, 255);
                       }
                   }
               }
@@ -54,10 +48,9 @@ main {
       }
   }
 
-}
-
 img {
-  width: 300px;
+  width: 200px;
+  height: 200px;
 }
 
 footer {
@@ -72,4 +65,36 @@ footer {
 
 .push {
   margin-left: auto;
+  padding: 0px, 30px;
+}
+
+.userdata {
+  font-size: 15px;
+  font-weight: 800;
+  color: blue;
+}
+
+button {
+  margin: 0px, 30px;
+
+}
+
+.status-Available {
+    background-color:rgb(86, 86, 245);
+    color: white;
+
+}
+.status-Assigned {
+    background-color:rgb(236, 204, 144);
+    color: black;
+
+}
+.status-Accepted {
+    background-color:#80ff80;
+    color: black;
+
+}
+.status-Finished {
+    background-color:grey;
+    color: white;
 }
