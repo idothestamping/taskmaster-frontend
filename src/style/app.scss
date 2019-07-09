@@ -7,6 +7,7 @@ header {
 
 main {
   margin: 1.5em 1em;
+  min-height: calc(100vh - 140px);
 
   ul {
       list-style-type: none;
@@ -17,22 +18,22 @@ main {
           margin: .5em;
           padding: .5em;
 
-          &.vip-availble {
+          &.status-availble {
               background:rgb(116, 116, 246);
           }
-          &.vip-assigned {
+          &.status-assigned {
             background:rgb(248, 195, 96);
         }
-        &.vip-accepted {
+        &.status-accepted {
           background:#80ff80;
       }
-      &.vip-finished {
+      &.status-finished {
         background:grey;
     }
 
           details {
               summary {
-                display:flex;
+                  display:flex;
                   flex-direction:row;
                   justify-content: space-between;
                 }
@@ -43,7 +44,7 @@ main {
                       flex-direction: row;
                       justify-content: space-between;
                       padding:.2345em .5em;
-
+                      margin-right: 20px;
                       &:hover {
                           background: #fff;
                       }
@@ -55,8 +56,20 @@ main {
 
 }
 
+img {
+  width: 300px;
+}
+
 footer {
   background: #37475A;
   color: ivory;
   line-height: 5em;
+}
+
+.footerfix {
+  min-height: calc(100vh - 140px)
+}
+
+.push {
+  margin-left: auto;
 }

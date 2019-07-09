@@ -53,9 +53,16 @@ function Tasks() {
             <summary>
               <span>{task.title}</span>
               <span>{task.assignee}</span>
-              <span className="status" id={task.id} onClick={_toggleStatus} >{task.status}</span>
+              <button className="status push" id={task.id} onClick={_toggleStatus}>{task.status}</button>
+              <form action={`${API}/${task.id}/images`} method="post" encType="multipart/form-data">
+              <label>
+                <span>Upload Image: </span>
+                <input name="file" type="file" />
+              </label>
+              <button>Submit</button>
+              </form>
             </summary>
-            <Description description={task.description} />
+            <Description task={task} />
           </details>
         </li>
       )}
@@ -64,10 +71,16 @@ function Tasks() {
 }
 
 function Description(props) {
-  let description = props.description || [];
+  let description = props.task.description || [];
+  let image = props.task.pic || [];
+  let assignee = props.task.assignee || [];
   return (
     <section>
-      {description}
+      Assignee Name: {assignee}
+      <br></br>
+      Description: {description}
+      <br></br>
+      <img src={image} alt={image} />
     </section>
   )
 }
