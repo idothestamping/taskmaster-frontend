@@ -11,42 +11,36 @@ function Tasks() {
   const [Tasks, setTasks] = useState([]);
 
   const _getTasks = () => {
+
+    // To use local json file:
     // setTasks(mockData)
-    // fetch from brook
+
     fetch( API, {
       mode:'cors',
     })
     .then( data => data.json() )
-    .then( ppl => setTasks(ppl) )
+    .then( task => setTasks(task) )
     .catch( console.error );
     // setTasks(mockData);
   };
 
   const _toggleStatus = (e) => {
-    // $status = ["availble"=>"availble", "assigned"=>"assigned","accpeted"=>"accepted","finished"=>"finished";];
-    // e.preventDefault();
-    // let id = e.target.id;
-
-    // setTasks( Tasks.map( (task) =>
-    //   task.id !== id ? task : {...task, status:$your_food[$category];}
-    // ));
-
+    e.preventDefault();
+    let id = e.target.id;
   
-    // patch to Brooks api
-    // fetch( `${API}/${id}/state`, {
-    //   mode:'cors',
-    //   method: 'PATCH'
+    fetch( `${API}/${id}/state`, {
+      mode:'cors',
+      method: 'PUT'
     
-    // })
-    // .then(data => data.json())
-    // .then(person => {
-    //   setTasks( Tasks.map( (entry) => {
-    //       return entry.id === id ? person : entry;
-    //     }
-    //   ));
-    // })
-    // .catch( console.error );
-
+    })
+    .then(data => data.json())
+    .then(task => {
+      setTasks( Tasks.map( (entry) => {
+          return entry.id === id ? task : entry;
+        }
+      ));
+    })
+    .catch( console.error );
   };
 
   useEffect(_getTasks, []);
@@ -59,10 +53,16 @@ function Tasks() {
             <summary>
               <span>{task.title}</span>
               <span>{task.assignee}</span>
-              <span id={task.id} onClick={_toggleStatus}>{task.status.toString()}</span>
-
+              <button className="status push" id={task.id} onClick={_toggleStatus}>{task.status}</button>
+              <form action={`${API}/${task.id}/images`} method="post" encType="multipart/form-data">
+              <label>
+                <span>Upload Image: </span>
+                <input name="file" type="file" />
+              </label>
+              <button>Submit</button>
+              </form>
             </summary>
-            <Description description={task.description} />
+            <Description task={task} />
           </details>
         </li>
       )}
@@ -71,15 +71,16 @@ function Tasks() {
 }
 
 function Description(props) {
-  let description = props.description || [];
+  let description = props.task.description || [];
+  let image = props.task.pic || [];
+  let assignee = props.task.assignee || [];
   return (
     <section>
-      {description}
-      {/* {description.map( (item,idx) =>
-        <div>
-          {item.itemName}
-        </div>
-      )} */}
+      Assignee Name: {assignee}
+      <br></br>
+      Description: {description}
+      <br></br>
+      <img src={image} alt={image} />
     </section>
   )
 }
